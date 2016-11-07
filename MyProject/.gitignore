@@ -40,12 +40,18 @@
 *.sdf
 *.VC.opendb
 
+
+Content/StarterContent*
+
 # Precompiled Assets
 SourceArt/**/*.png
 SourceArt/**/*.tga
 
 # Binary Files
 Binaries/*
+
+# 3D model
+model/*
 
 # Builds
 Build/*
