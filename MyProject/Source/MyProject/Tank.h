@@ -17,6 +17,9 @@ public:
 	UFUNCTION(BluePrintCallable, Category= Setup)
 	void SetBarrelReference(UStaticMeshComponent*BarrelToset,FString PutSomeText);
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = SomeText)
+	FString SomeText = "Text From Tank.h - yay";
+
 protected:
 	UTankAimComponent* TankAimComponent = nullptr;
 	UTankAimComponent* TankAimComponent2 = nullptr;
@@ -33,6 +36,5 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	
 	
 };
