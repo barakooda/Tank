@@ -2,8 +2,9 @@
 
 #pragma once
 
+#include "TankAimComponent.h"
 #include "GameFramework/Pawn.h"
-#include "Tank.generated.h"
+#include "Tank.generated.h" //paste includes only above this line
 
 UCLASS()
 class MYPROJECT_API ATank : public APawn
@@ -11,6 +12,15 @@ class MYPROJECT_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
+	void AimAt(FVector);
+	
+	UFUNCTION(BluePrintCallable, Category= Setup)
+	void SetBarrelReference(UStaticMeshComponent*BarrelToset,FString PutSomeText);
+
+protected:
+	UTankAimComponent* TankAimComponent = nullptr;
+	UTankAimComponent* TankAimComponent2 = nullptr;
+private:
 	// Sets default values for this pawn's properties
 	ATank();
 

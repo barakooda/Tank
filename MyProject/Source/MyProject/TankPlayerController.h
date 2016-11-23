@@ -20,10 +20,22 @@ public:
 	ATank* GetControlledTank() const;
 	
 	//start aim on marker
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MarkXLocation)
+		float MarkXLocation = 0.5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MarkYLocation)
+		float MarkYLocation = 0.33333;
 	
 private:
-
+	
+	bool GetLookDirection(FVector2D, FVector&) const;
 	void AimOnMarker();
+	bool GetSightRayHitLocation(FVector &) const;
+	bool GetLookVectorHitLocation(FVector &,FVector &) const ;
+	
 	ATank* CurrentPossesedTank = nullptr ;
+	float LineTraceRange = 1000000;
+
 };
  
