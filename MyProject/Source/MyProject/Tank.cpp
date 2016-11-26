@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyProject.h"
+#include "TankBarrel.h"
 #include "Tank.h"
 
 
@@ -42,14 +43,16 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 void ATank::AimAt(FVector HitLocation)
 	{
 
-		TankAimComponent->AimAt(HitLocation);
+		TankAimComponent->AimAt(HitLocation,LunchSpeed);
 		
 	}
 
-void ATank::SetBarrelReference(UStaticMeshComponent * BarrelToset,FString PutSomeText)
+void ATank::SetBarrelReference(UTankBarrel * BarrelToset,FString PutSomeText)
 {
 
 	TankAimComponent->SetBarrelReference(BarrelToset);
 
-	UE_LOG(LogTemp,Warning,TEXT("The test from blue print is: %s"),*PutSomeText)
+	//UE_LOG(LogTemp, Warning, TEXT("The test from blue print is: %s"), *PutSomeText);
 }
+
+

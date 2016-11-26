@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //paste includes only above this line
 
+class UTankBarrel; //forward declaration
+
 UCLASS()
 class MYPROJECT_API ATank : public APawn
 {
@@ -15,10 +17,13 @@ public:
 	void AimAt(FVector);
 	
 	UFUNCTION(BluePrintCallable, Category= Setup)
-	void SetBarrelReference(UStaticMeshComponent*BarrelToset,FString PutSomeText);
+	void SetBarrelReference(UTankBarrel* BarrelToset,FString PutSomeText);
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = SomeText)
 	FString SomeText = "Text From Tank.h - yay";
+
+
+
 
 protected:
 	UTankAimComponent* TankAimComponent = nullptr;
@@ -36,5 +41,6 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LunchSpeed = 100000;
 };
