@@ -2,11 +2,15 @@
 
 #pragma once
 
-#include "TankAimComponent.h"
+//#include "TankAimComponent.h" //moving to forward declaration
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //paste includes only above this line
 
-class UTankBarrel; //forward declaration
+//forward declaration
+class UTankBarrel;
+class UTankTurret;
+class UTankAimComponent;
+
 
 UCLASS()
 class MYPROJECT_API ATank : public APawn
@@ -19,6 +23,9 @@ public:
 	UFUNCTION(BluePrintCallable, Category= Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToset,FString PutSomeText);
 
+	UFUNCTION(BluePrintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret* TurretToSet, FString PutSomeText);
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = SomeText)
 	FString SomeText = "Text From Tank.h - yay";
 
@@ -28,6 +35,7 @@ public:
 protected:
 	UTankAimComponent* TankAimComponent = nullptr;
 	UTankAimComponent* TankAimComponent2 = nullptr;
+
 private:
 	// Sets default values for this pawn's properties
 	ATank();
@@ -36,7 +44,7 @@ private:
 	virtual void BeginPlay() override;
 	
 	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+	//virtual void Tick( float DeltaSeconds ) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;

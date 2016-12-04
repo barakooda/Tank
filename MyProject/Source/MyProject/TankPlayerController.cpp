@@ -2,6 +2,7 @@
 
 
 #include "MyProject.h"
+#include "Tank.h"
 #include "TankPlayerController.h"
 
 

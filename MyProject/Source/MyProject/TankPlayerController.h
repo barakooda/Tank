@@ -1,13 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-#include "Tank.h"
+
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
+
+//forword declartion
+//class ATank;
 /**
  * 
  */
+class ATank;
 UCLASS()
 class MYPROJECT_API ATankPlayerController : public APlayerController
 {

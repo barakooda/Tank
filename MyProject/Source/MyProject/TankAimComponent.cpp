@@ -3,6 +3,7 @@
 
 #include "MyProject.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimComponent.h"
 
 //Forward Decleration
@@ -13,7 +14,7 @@ UTankAimComponent::UTankAimComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = true; //TODO should this really tick ?
 
 	// ...
 }
@@ -55,17 +56,32 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 		StartLocation,
 		HitLocation,
 		LunchSpeed,
-		ESuggestProjVelocityTraceOption::DoNotTrace);
+		0,
+		0,
+		false,
+		ESuggestProjVelocityTraceOption::DoNotTrace
+		);
 ////////////////////////////////////////////////////////		
-
+	float Time = GetWorld()->GetTimeSeconds();
 	if (bHaveAimSolution)
+
+		
 
 	{ 
 		FVector AimDirection = OutLunchVelocity.GetSafeNormal();
-
+		
 		//UE_LOG(LogTemp, Warning, TEXT("Aim Direction:%s"), *AimDirection.ToString());
+		
 		BarrelToAim(AimDirection);
+		//TurretToAim(AimDirection);
 
+		UE_LOG(LogTemp, Warning, TEXT("Aim Solve Found at time : %f"), Time);
+
+	}
+	
+	else 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Aim Solve Found at time : %f"), Time);
 	}
 	
 	
@@ -75,19 +91,43 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 	
 void UTankAimComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+}
+
+void UTankAimComponent::SetTurretReference(UTankTurret* TurretToSet) 
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
+	UE_LOG(LogTemp, Warning, TEXT("Turrret works"));
 }
 
 void UTankAimComponent::BarrelToAim(FVector AimDirection)
 {
 	
+
 	FRotator BarrelRotator = Barrel->GetForwardVector().Rotation();
 	FRotator AimRotator = AimDirection.Rotation();
 
-	FRotator DeltaRotator = AimRotator = BarrelRotator;
+	FRotator DeltaRotator = AimRotator - BarrelRotator;
 
 	
 
-	Barrel->Elevate(5); //TODO magic number
+	Barrel->Elevate(DeltaRotator.Pitch); //TODO magic number
 
 }
+
+void UTankAimComponent::TurretToAim(FVector AimDirection) 
+	{
+
+	FRotator TurretRotator = Turret->GetForwardVector().Rotation();
+	FRotator AimRotator = AimDirection.Rotation();
+	FRotator DeltaRotator = AimRotator - TurretRotator;
+
+	UE_LOG( LogTemp, Warning, TEXT("Delta Turret Rotator %s" ), *DeltaRotator.ToString() );
+
+	}
+
+
+
+

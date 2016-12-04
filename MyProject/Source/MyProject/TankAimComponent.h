@@ -7,6 +7,9 @@
 
 //forward decleration 
 class UTankBarrel;
+class UTankTurret;
+
+//hold barrel properties
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MYPROJECT_API UTankAimComponent : public UActorComponent
@@ -18,6 +21,7 @@ public:
 	UTankAimComponent();
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+	void SetTurretReference(UTankTurret * TurretToSet);
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -31,5 +35,9 @@ public:
 
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
+
 	void BarrelToAim(FVector);
+	void TurretToAim(FVector);
+	
 };

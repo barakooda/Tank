@@ -3,12 +3,20 @@
 #include "MyProject.h"
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float DPS)
+void UTankBarrel::Elevate(float RelativeDPS)
 {
+	RelativeDPS = FMath::Clamp(RelativeDPS, -1.f, 1.f);
 
 	//move Barrel right amount this frame,clamp with max elevation and max speed.
-	UE_LOG(LogTemp, Warning, TEXT("Barrel Elevate() Called at speed %f"),DPS);
-	return;
+	float ElevationChange = RelativeDPS * MaxDPS * GetWorld()->DeltaTimeSeconds; //speed 
+	
+	float RelavtiveNewElevation = RelativeRotation.Pitch + ElevationChange;
+	
+	RelavtiveNewElevation = FMath::Clamp(RelavtiveNewElevation, MinElevationDegree, MaxElevationDegree);
+	
+	SetRelativeRotation ( FRotator(RelavtiveNewElevation, 0, 0) );
+	
+	//return;
 }
 
 
