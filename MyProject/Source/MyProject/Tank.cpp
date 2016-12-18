@@ -62,7 +62,10 @@ void ATank::SetBarrelReference(UTankBarrel * BarrelToset,FString PutSomeText)
 
 void ATank::SetTurretReference(UTankTurret * TurretToSet, FString PutSomeText)
 {
+
+	TankAimComponent->SetTurretReference(TurretToSet);
 	UE_LOG( LogTemp, Warning, TEXT("The test from turret is: %s"), *TurretToSet->GetName() );
+
 	//TankAimComponent->SetBarrelReference(BarrelToset);
 
 	

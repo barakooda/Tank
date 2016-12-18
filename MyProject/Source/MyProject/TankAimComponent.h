@@ -21,7 +21,7 @@ public:
 	UTankAimComponent();
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret * TurretToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 	// Called when the game starts
 	virtual void BeginPlay() override;

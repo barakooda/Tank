@@ -14,7 +14,7 @@ UTankAimComponent::UTankAimComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = true; //TODO should this really tick ?
+	PrimaryComponentTick.bCanEverTick = false; //TODO should this really tick ?
 
 	// ...
 }
@@ -73,15 +73,16 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 		//UE_LOG(LogTemp, Warning, TEXT("Aim Direction:%s"), *AimDirection.ToString());
 		
 		BarrelToAim(AimDirection);
-		//TurretToAim(AimDirection);
 
-		UE_LOG(LogTemp, Warning, TEXT("Aim Solve Found at time : %f"), Time);
+		TurretToAim(AimDirection);
+
+		//UE_LOG(LogTemp, Warning, TEXT("Aim Vector : %s"), *AimDirection.ToString());
 
 	}
 	
 	else 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No Aim Solve Found at time : %f"), Time);
+		//UE_LOG(LogTemp, Warning, TEXT("No Aim Solve Found at time : %f"), Time);
 	}
 	
 	
@@ -99,7 +100,7 @@ void UTankAimComponent::SetTurretReference(UTankTurret* TurretToSet)
 {
 	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
-	UE_LOG(LogTemp, Warning, TEXT("Turrret works"));
+	//UE_LOG(LogTemp, Warning, TEXT("Turrret works"));
 }
 
 void UTankAimComponent::BarrelToAim(FVector AimDirection)
@@ -110,7 +111,8 @@ void UTankAimComponent::BarrelToAim(FVector AimDirection)
 	FRotator AimRotator = AimDirection.Rotation();
 
 	FRotator DeltaRotator = AimRotator - BarrelRotator;
-
+	
+	//UE_LOG(LogTemp, Warning, TEXT("rotator diffrence: %s"), *DeltaRotator.ToString());
 	
 
 	Barrel->Elevate(DeltaRotator.Pitch); //TODO magic number
@@ -123,9 +125,11 @@ void UTankAimComponent::TurretToAim(FVector AimDirection)
 	FRotator TurretRotator = Turret->GetForwardVector().Rotation();
 	FRotator AimRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimRotator - TurretRotator;
+	
+	Turret->Rotate(DeltaRotator.Yaw);
 
-	UE_LOG( LogTemp, Warning, TEXT("Delta Turret Rotator %s" ), *DeltaRotator.ToString() );
-
+	//UE_LOG( LogTemp, Warning, TEXT("Delta Turret Rotator %s" ), *DeltaRotator.ToString() );
+	
 	}
 
 

@@ -15,7 +15,7 @@ void UTankBarrel::Elevate(float RelativeDPS)
 	RelavtiveNewElevation = FMath::Clamp(RelavtiveNewElevation, MinElevationDegree, MaxElevationDegree);
 	
 	SetRelativeRotation ( FRotator(RelavtiveNewElevation, 0, 0) );
-	
+	//UE_LOG(LogTemp, Warning, TEXT("check barrel lift : %f"), RelativeDPS);
 	//return;
 }
 

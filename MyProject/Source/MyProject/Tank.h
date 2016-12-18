@@ -50,5 +50,5 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LunchSpeed = 100000;
+	float LunchSpeed = 4000;
 };
