@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyProject.h"
+#include "Projectile.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "TankAimComponent.h"
@@ -53,9 +54,9 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::SetBarrelReference(UTankBarrel * BarrelToset,FString PutSomeText)
 {
-
+	
 	TankAimComponent->SetBarrelReference(BarrelToset);
-
+	Barrel = BarrelToset;
 	//UE_LOG(LogTemp, Warning, TEXT("The test from blue print is: %s"), *PutSomeText);
 }
 
@@ -72,3 +73,14 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet, FString PutSomeText)
 }
 
 
+void ATank::fire() 
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Fire!!!"));
+	
+	if (!Barrel) { return; }
+	//spwan projectile on socket of barrel.
+	FVector Location = Barrel->GetSocketLocation("BarrelEnd");
+	FRotator Rotation = Barrel->GetSocketRotation("BarrelEnd");
+	UE_LOG( LogTemp, Warning, TEXT("Fire!!! location : %s "), *Location.ToString() );
+	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,Location, Rotation);
+}

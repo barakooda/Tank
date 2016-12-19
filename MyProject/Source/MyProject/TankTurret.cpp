@@ -15,7 +15,7 @@ void UTankTurret::Rotate(float RelativeDPS)
 	//RelavtiveNewRotation = FMath::Clamp(RelavtiveNewRotation, MinElevationDegree, MaxElevationDegree);
 
 	SetRelativeRotation(FRotator(0, RelavtiveNewRotation, 0));
-	UE_LOG( LogTemp, Warning, TEXT("Delta Turret Rotator %f" ), RelavtiveNewRotation);
+	//UE_LOG( LogTemp, Warning, TEXT("Delta Turret Rotator %f" ), RelavtiveNewRotation);
 }
 
 

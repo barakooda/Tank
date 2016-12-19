@@ -10,7 +10,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimComponent;
-
+class AProjectile;
 
 UCLASS()
 class MYPROJECT_API ATank : public APawn
@@ -25,6 +25,9 @@ public:
 
 	UFUNCTION(BluePrintCallable, Category = Setup)
 	void SetTurretReference(UTankTurret* TurretToSet, FString PutSomeText);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void fire();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = SomeText)
 	FString SomeText = "Text From Tank.h - yay";
@@ -49,6 +52,13 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
+
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LunchSpeed = 4000;
+
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UTankBarrel* Barrel = nullptr;
+
 };
