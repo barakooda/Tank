@@ -9,6 +9,7 @@
 class UTankBarrel;
 class UTankTurret;
 
+
 //hold barrel properties
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

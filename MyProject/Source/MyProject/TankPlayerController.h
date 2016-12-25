@@ -25,10 +25,10 @@ public:
 	
 	//start aim on marker
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MarkXLocation)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = MarkXLocation)
 		float MarkXLocation = 0.5;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MarkYLocation)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = MarkYLocation)
 		float MarkYLocation = 0.33333;
 	
 private:

@@ -10,6 +10,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimComponent;
+class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -38,6 +39,9 @@ public:
 protected:
 	UTankAimComponent* TankAimComponent = nullptr;
 	UTankAimComponent* TankAimComponent2 = nullptr;
+	
+	UPROPERTY(EditDefaultsOnly,BluePrintReadOnly,Category = TankMovement)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
@@ -56,9 +60,15 @@ private:
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LunchSpeed = 4000;
 
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTime = 3; //seconds
+
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	UTankBarrel* Barrel = nullptr;
+
+	
+	float LastFireTime = 0;   //last time tank was firing
 
 };

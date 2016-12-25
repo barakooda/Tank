@@ -9,8 +9,8 @@
 void ATankAiController::BeginPlay()
 {
 	Super::BeginPlay();
-	CurrentPossesedTank = GetControlledTank();
-	CurrentPlayerController = GetPlayerController();
+	CurrentPossesedTank = Cast<ATank>(GetPawn());
+	CurrentPlayerController = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
 
 	/////////////////////////////////////////Check if tank was possesed////////////////////////////////////////////////////////////////
@@ -44,15 +44,25 @@ void ATankAiController::BeginPlay()
 void ATankAiController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (CurrentPossesedTank && CurrentPlayerController) 
+	
+	{
 
-	FVector HitLocation = GetPlayerController()->GetActorLocation();
-	CurrentPossesedTank->AimAt(HitLocation);
+		FVector HitLocation = CurrentPlayerController->GetActorLocation();
+		CurrentPossesedTank->AimAt(HitLocation);
+
+		//fire every frame
+		CurrentPossesedTank->fire();
+	
+	}
+
 }
 
+/*
 ATank* ATankAiController::GetControlledTank() const
 {
 	
-	return Cast<ATank>(GetPawn());
+	return ;
 
 }
 
@@ -60,5 +70,5 @@ ATank* ATankAiController::GetPlayerController() const
 {
 	return Cast<ATank> (GetWorld()->GetFirstPlayerController()->GetPawn());
 }
-
+*/
 

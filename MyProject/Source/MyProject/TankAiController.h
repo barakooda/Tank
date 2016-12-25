@@ -19,9 +19,9 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
-	ATank* GetControlledTank() const;
+	//ATank* GetControlledTank() const;
 
-	ATank* GetPlayerController() const;
+	//ATank* GetPlayerController() const;
 
 private:
 	ATank* CurrentPossesedTank = nullptr;

@@ -4,6 +4,8 @@
 
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
+//Forward Declaration
+class UPMC;
 
 UCLASS()
 class MYPROJECT_API AProjectile : public AActor
@@ -20,6 +22,9 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
+	void LunchProjectile(float);
+
+private:
+	UPMC* ProjectileMovement = nullptr;
 	
 };
