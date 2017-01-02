@@ -19,7 +19,7 @@ ATank::ATank()
 	// no need to protect pointers at construction phase
 
 	TankAimComponent = CreateDefaultSubobject <UTankAimComponent>(FName("Aim Component Barak"));
-	TankMovementComponent = CreateDefaultSubobject <UTankMovementComponent>(FName("Movement Component Barak"));
+	//TankMovementComponent = CreateDefaultSubobject <UTankMovementComponent>(FName("Movement Component Barak"));
 
 	//TankAimComponent2 = CreateDefaultSubobject <UTankAimComponent>(FName("Aim Component Barak2"));
 }
@@ -68,7 +68,7 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet, FString PutSomeText)
 {
 
 	TankAimComponent->SetTurretReference(TurretToSet);
-	UE_LOG( LogTemp, Warning, TEXT("The test from turret is: %s"), *TurretToSet->GetName() );
+	//UE_LOG( LogTemp, Warning, TEXT("The test from turret is: %s"), *TurretToSet->GetName() );
 
 	//TankAimComponent->SetBarrelReference(BarrelToset);
 

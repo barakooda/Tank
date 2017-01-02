@@ -16,6 +16,8 @@ void UTankTrack::TrackThrottle(float Throttle)
 	FVector ForceLocation = GetComponentLocation();
 	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent> ( GetOwner()->GetRootComponent() );
 
+	UE_LOG(LogTemp, Warning, TEXT("root name is : %s "), *GetOwner()->GetRootComponent()->GetName());
+
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 
 }

@@ -20,5 +20,5 @@ public:
 	
 	//max Drive Force Newton 
 	UPROPERTY(EditDefaultsOnly)
-	float TrackMaxForce = 12000000; //45 ton tank and 2.7 accelration m/s
+	float TrackMaxForce = 18000000.0; //45 ton tank and 2.7 accelration m/s
 };

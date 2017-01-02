@@ -48,6 +48,8 @@ void ATankAiController::Tick(float DeltaTime)
 	
 	{
 
+		MoveToActor(CurrentPlayerController, StopRadius);// check radius ditance unit
+
 		FVector HitLocation = CurrentPlayerController->GetActorLocation();
 		CurrentPossesedTank->AimAt(HitLocation);
 
