@@ -2,6 +2,7 @@
 
 
 #include "MyProject.h"
+#include "TankAimComponent.h"
 #include "Tank.h"
 #include "TankPlayerController.h"
 
@@ -9,19 +10,37 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin played"));
+	//if (ensure(0)) { UE_LOG(LogTemp, Warning, TEXT("test ensure")); }
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin played"));
 	
 	CurrentPossesedTank = GetControlledTank();
+	
 	
 	if (!CurrentPossesedTank)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("no posseded tank") );
-		 
+		
 	}
 	else 
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Current Possesed Tank is: %s"), *(CurrentPossesedTank->GetName()));
 	}
+	// BlueprintImplementableEvent method 
+	auto AimComponentRef = CurrentPossesedTank->FindComponentByClass<UTankAimComponent>();
+
+	if (AimComponentRef)
+	{
+		
+		FoundAimingComponent(AimComponentRef);
+
+	}
+	else
+
+	{
+		UE_LOG(LogTemp, Warning, TEXT("no AimingComponent"));
+	}
+
+
 }
 void ATankPlayerController::Tick(float DeltaTime)
 {
@@ -39,7 +58,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 }
 void ATankPlayerController::AimOnMarker()
 {
-	if (!CurrentPossesedTank) { return; }
+	if ( !ensure(CurrentPossesedTank) ) { return; } //ensure
 	
 	FVector HitLocation = FVector(1.0); //Out parameter
 

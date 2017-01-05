@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Barakooda
 
 #pragma once
 
@@ -21,19 +21,22 @@ class MYPROJECT_API UTankMovementComponent : public UNavMovementComponent
 public :
 
 
-	UFUNCTION(BlueprintCallable, Category = TankMovement)
+	UFUNCTION(BlueprintCallable, Category = "TankMovement")
 	void Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
-	UFUNCTION(BlueprintCallable,Category = TankMovement)
+	UFUNCTION(BlueprintCallable,Category = "TankMovement")
 	void IntendMoveForward (float Throw);
 
-	UFUNCTION(BluePrintCallable, Category = TankMovement)
+	UFUNCTION(BlueprintCallable, Category = "TankMovement")
 	void IntendRotateRight(float Throw);
 	
 	//Check best protection.
-	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+	
 
 private:
+	//called from the path finfing logic by the Ai controllers
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
 

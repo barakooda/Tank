@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Barakooda
 
 #pragma once
 
@@ -9,9 +9,10 @@
 //forword declartion
 //class ATank;
 /**
- * 
+Helping Player Aim
  */
 class ATank;
+//class UTankAimComponent;
 UCLASS()
 class MYPROJECT_API ATankPlayerController : public APlayerController
 {
@@ -21,15 +22,22 @@ class MYPROJECT_API ATankPlayerController : public APlayerController
 public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float) override;
-	ATank* GetControlledTank() const;
-	
 	//start aim on marker
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = MarkXLocation)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "MarkXLocation")
 		float MarkXLocation = 0.5;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = MarkYLocation)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "MarkYLocation")
 		float MarkYLocation = 0.33333;
+
+protected:
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
+	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimComponent* AimComponentRef);
+	
 	
 private:
 	

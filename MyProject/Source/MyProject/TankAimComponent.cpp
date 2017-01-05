@@ -45,7 +45,7 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 	//FString TankName = GetOwner()->GetName();
 	//FVector BarrelLocation = Barrel->GetComponentLocation();
 	
-	if (!Barrel) { return; }
+	if ( !ensure(Barrel) ) { return; } //ensure
 	FVector OutLunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("BarrelEnd"));
 ////////////////////////////////////////////////////////////////	
@@ -89,7 +89,15 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 	
 }
 
-	
+
+void UTankAimComponent::InitialiseAim(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
+{
+	if ( !ensure( BarrelToSet && TurretToSet ) ) { return; } // ensure
+	Barrel = BarrelToSet;
+	Turret = TurretToSet;
+}
+
+/*
 void UTankAimComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	if (!BarrelToSet) { return; }
@@ -102,11 +110,12 @@ void UTankAimComponent::SetTurretReference(UTankTurret* TurretToSet)
 	Turret = TurretToSet;
 	//UE_LOG(LogTemp, Warning, TEXT("Turrret works"));
 }
+*/
 
 void UTankAimComponent::BarrelToAim(FVector AimDirection)
 {
 	
-
+	if (!ensure (Barrel) ) { return; } //ensure
 	FRotator BarrelRotator = Barrel->GetForwardVector().Rotation();
 	FRotator AimRotator = AimDirection.Rotation();
 
@@ -121,7 +130,7 @@ void UTankAimComponent::BarrelToAim(FVector AimDirection)
 
 void UTankAimComponent::TurretToAim(FVector AimDirection) 
 	{
-
+	if (!ensure(Turret)) { return; } //ensure
 	FRotator TurretRotator = Turret->GetForwardVector().Rotation();
 	FRotator AimRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimRotator - TurretRotator;

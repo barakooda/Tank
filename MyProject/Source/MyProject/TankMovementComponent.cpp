@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Barakooda
 
 #include "MyProject.h"
 #include "TankTrack.h"
@@ -7,7 +7,7 @@
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	if (!ensure(LeftTrackToSet && RightTrackToSet)) { return; } //ensure
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 }
@@ -15,17 +15,16 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 void UTankMovementComponent::IntendMoveForward(float Throw) 
 {
 	
-	if (!LeftTrack || !RightTrack) { return; }
+	if ( !ensure(LeftTrack && RightTrack) ) { return; } //ensure
 	LeftTrack->TrackThrottle(Throw);
 	RightTrack->TrackThrottle(Throw);
 
-	//TODOclamp speed.
 
 }
 
 void UTankMovementComponent::IntendRotateRight(float Throw)
 {
-	UE_LOG(LogTemp, Warning, TEXT("The throttle of %s is : %f"), *(GetName()), Throw);
+	//UE_LOG(LogTemp, Warning, TEXT("The throttle of %s is : %f"), *(GetName()), Throw);
 	LeftTrack->TrackThrottle(Throw);
 	RightTrack->TrackThrottle(-Throw);
 
@@ -44,7 +43,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	IntendRotateRight(up.Z);
 	IntendMoveForward(ForwardThrow);
 
-	UE_LOG(LogTemp,Warning,TEXT("Tank Name : %s , Velocity : %s"),*GetOwner()->GetName(), *up.ToString())
+	//UE_LOG(LogTemp,Warning,TEXT("Tank Name : %s , Velocity : %s"),*GetOwner()->GetName(), *up.ToString())
 }
 
 

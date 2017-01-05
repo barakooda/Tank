@@ -28,6 +28,6 @@ private:
 	ATank* CurrentPlayerController = nullptr;
 
 	//how close can the Ai takn get to the player.
-	float StopRadius = 30;
+	float StopRadius = 3;
 	
 };

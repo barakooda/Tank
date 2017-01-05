@@ -17,7 +17,7 @@ public:
 	void Rotate(float RelativeDPS);
 
 private:
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float MaxDPS = 5;
 
 };

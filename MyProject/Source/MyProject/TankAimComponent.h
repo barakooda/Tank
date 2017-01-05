@@ -1,16 +1,26 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Barakooda
 
 #pragma once
 
 #include "Components/ActorComponent.h"
 #include "TankAimComponent.generated.h"
 
+
+//Enum for aiming state
+UENUM()
+enum class EFiringStatus : uint8
+{
+	Reload,
+	Aim,
+	Locked
+};
+
 //forward decleration 
 class UTankBarrel;
 class UTankTurret;
 
 
-//hold barrel properties
+//hold aim properties
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MYPROJECT_API UTankAimComponent : public UActorComponent
@@ -19,10 +29,13 @@ class MYPROJECT_API UTankAimComponent : public UActorComponent
 
 public:	
 	// Sets default values for this component's properties
-	UTankAimComponent();
+	
 
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret* TurretToSet);
+	UFUNCTION (BlueprintCallable,Category="TankAim")
+	void InitialiseAim(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+	
+	//void SetBarrelReference(UTankBarrel* BarrelToSet);
+	//void SetTurretReference(UTankTurret* TurretToSet);
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -33,8 +46,19 @@ public:
 		
 	void AimAt(FVector,float);
 
+	
 
+protected:
+	UPROPERTY(BluePrintReadOnly, Category = "State")
+	EFiringStatus FiringState = EFiringStatus::Reload;
+
+	
+	
+	
+	
 private:
+	UTankAimComponent();
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 

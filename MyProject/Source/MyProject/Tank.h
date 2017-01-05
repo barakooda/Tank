@@ -20,55 +20,51 @@ class MYPROJECT_API ATank : public APawn
 
 public:
 	void AimAt(FVector);
+	virtual void BeginPlay() override;
 	
-	UFUNCTION(BluePrintCallable, Category= Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToset,FString PutSomeText);
-
-	UFUNCTION(BluePrintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet, FString PutSomeText);
-
+	
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void fire();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = SomeText)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "SomeText")
 	FString SomeText = "Text From Tank.h - yay";
 
 
 
 
 protected:
-	UTankAimComponent* TankAimComponent = nullptr;
-	UTankAimComponent* TankAimComponent2 = nullptr;
 	
-	UPROPERTY(EditDefaultsOnly,BluePrintReadOnly,Category = TankMovement)
+	
+	UPROPERTY(EditDefaultsOnly,BluePrintReadOnly,Category = "TankMovement")
 	UTankMovementComponent* TankMovementComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "TankAim")
+	UTankAimComponent* TankAim = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
 	ATank();
 
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+
 	
 	// Called every frame
 	//virtual void Tick( float DeltaSeconds ) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditAnywhere, Category = "Firing")
 	float LunchSpeed = 4000;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTime = 3; //seconds
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
-	UTankBarrel* Barrel = nullptr;
 
 	
 	float LastFireTime = 0;   //last time tank was firing
 
+	UTankBarrel* Barrel = nullptr;
 };

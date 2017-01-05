@@ -15,7 +15,7 @@ class MYPROJECT_API UTankTrack : public UStaticMeshComponent
 	
 public:
 	//Set Throttle to track
-	UFUNCTION(BluePrintCallable, Category = Input)
+	UFUNCTION(BluePrintCallable, Category = "Input")
 	void TrackThrottle(float Throttle);
 	
 	//max Drive Force Newton 
