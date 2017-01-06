@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyProject.h"
-#include "TankMovementComponent.h"
+//#include "TankMovementComponent.h"
 #include "Projectile.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
@@ -14,8 +14,8 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto name = GetName();
-	UE_LOG( LogTemp, Warning, TEXT("C++ [%s] Donkey Start Tank (Begin Play) check "),*name);
+	TankAim = FindComponentByClass<UTankAimComponent>();
+
 }
 
 // Sets default values
@@ -24,8 +24,6 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	
-	auto name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("C++ [%s] Donkey Construct Tank (Construct) "), *name);
 
 	// no need to protect pointers at construction phase
 

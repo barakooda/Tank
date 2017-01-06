@@ -5,6 +5,7 @@
 #include "MyProject.h"
 #include "Tank.h"
 #include "TankAiController.h"
+//Depend on movement component via path finding
 
 void ATankAiController::BeginPlay()
 {
@@ -48,7 +49,7 @@ void ATankAiController::Tick(float DeltaTime)
 	
 	{
 
-		MoveToActor(CurrentPlayerController, StopRadius);// check radius ditance unit
+		MoveToActor(CurrentPlayerController, StopRadius);// check radius ditance unit //using path finding logic in tankmovemnet compenent
 
 		FVector HitLocation = CurrentPlayerController->GetActorLocation();
 		CurrentPossesedTank->AimAt(HitLocation);
@@ -60,17 +61,5 @@ void ATankAiController::Tick(float DeltaTime)
 
 }
 
-/*
-ATank* ATankAiController::GetControlledTank() const
-{
-	
-	return ;
 
-}
-
-ATank* ATankAiController::GetPlayerController() const
-{
-	return Cast<ATank> (GetWorld()->GetFirstPlayerController()->GetPawn());
-}
-*/
 

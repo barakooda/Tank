@@ -10,7 +10,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimComponent;
-class UTankMovementComponent;
+//class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -35,8 +35,8 @@ public:
 protected:
 	
 	
-	UPROPERTY(EditDefaultsOnly,BluePrintReadOnly,Category = "TankMovement")
-	UTankMovementComponent* TankMovementComponent = nullptr;
+	//UPROPERTY(EditDefaultsOnly,BluePrintReadOnly,Category = "TankMovement")
+	//UTankMovementComponent* TankMovementComponent = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "TankAim")
 	UTankAimComponent* TankAim = nullptr;
