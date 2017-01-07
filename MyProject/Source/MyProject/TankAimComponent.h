@@ -20,6 +20,7 @@ class UTankBarrel;
 class UTankTurret;
 
 
+
 //hold aim properties
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -30,6 +31,7 @@ class MYPROJECT_API UTankAimComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	
+	void AimLocation(FVector HitLocation);
 
 	UFUNCTION (BlueprintCallable,Category="TankAim")
 	void InitialiseAim(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
@@ -56,13 +58,19 @@ protected:
 	
 	
 	
+	
 private:
 	UTankAimComponent();
+
+	UTankAimComponent* TankAim = nullptr;
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
 	void BarrelToAim(FVector);
 	void TurretToAim(FVector);
+
+	UPROPERTY(EditAnywhere, Category = "Firing")
+	float LunchSpeed = 4000;
 	
 };

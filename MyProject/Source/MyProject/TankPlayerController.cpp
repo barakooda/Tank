@@ -3,7 +3,8 @@
 
 #include "MyProject.h"
 #include "TankAimComponent.h"
-#include "Tank.h"
+
+#include "TankAimComponent.h"
 #include "TankPlayerController.h"
 
 
@@ -13,8 +14,14 @@ void ATankPlayerController::BeginPlay()
 	//if (ensure(0)) { UE_LOG(LogTemp, Warning, TEXT("test ensure")); }
 	//UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin played"));
 	
-	CurrentPossesedTank = GetControlledTank();
-	
+
+	auto CurrentPossesedTank = GetPawn();
+	if (ensure(CurrentPossesedTank))
+
+		{
+			TankAim = CurrentPossesedTank->FindComponentByClass<UTankAimComponent>();
+
+		}
 	
 	if (!CurrentPossesedTank)
 	{
@@ -42,6 +49,7 @@ void ATankPlayerController::BeginPlay()
 
 
 }
+
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -52,20 +60,30 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimOnMarker();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const 
-{
-	return Cast<ATank>(GetPawn());
-}
+
+
 void ATankPlayerController::AimOnMarker()
 {
+
+
+	auto CurrentPossesedTank = GetPawn();
 	if ( !ensure(CurrentPossesedTank) ) { return; } //ensure
 	
+	
+	if (ensure(CurrentPossesedTank)) // ensure
+
+	{
+		TankAim = CurrentPossesedTank->FindComponentByClass<UTankAimComponent>();
+
+	}
+
 	FVector HitLocation = FVector(1.0); //Out parameter
 
 	if (GetSightRayHitLocation(HitLocation))
+		
 		{
-
-		CurrentPossesedTank->AimAt(HitLocation);
+			
+			TankAim->AimLocation(HitLocation);
 
 		}
 

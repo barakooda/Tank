@@ -9,8 +9,6 @@
 //forward declaration
 class UTankBarrel;
 class UTankTurret;
-class UTankAimComponent;
-//class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -19,7 +17,7 @@ class MYPROJECT_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	void AimAt(FVector);
+	
 	virtual void BeginPlay() override;
 	
 	
@@ -35,11 +33,9 @@ public:
 protected:
 	
 	
-	//UPROPERTY(EditDefaultsOnly,BluePrintReadOnly,Category = "TankMovement")
-	//UTankMovementComponent* TankMovementComponent = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "TankAim")
-	UTankAimComponent* TankAim = nullptr;
+	//UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "TankAim")
+	//UTankAimComponent* TankAim = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
@@ -53,8 +49,8 @@ private:
 
 
 
-	UPROPERTY(EditAnywhere, Category = "Firing")
-	float LunchSpeed = 4000;
+	//UPROPERTY(EditAnywhere, Category = "Firing")
+	//float LunchSpeed = 4000;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTime = 3; //seconds
@@ -65,6 +61,7 @@ private:
 
 	
 	float LastFireTime = 0;   //last time tank was firing
+	float LunchSpeed = 4000;
 
 	UTankBarrel* Barrel = nullptr;
 };

@@ -26,8 +26,7 @@ UTankAimComponent::UTankAimComponent()
 void UTankAimComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
+	TankAim = GetOwner()->FindComponentByClass<UTankAimComponent>();
 	
 }
 
@@ -37,13 +36,18 @@ void UTankAimComponent::TickComponent( float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	// ...
+}
+
+void UTankAimComponent::AimLocation(FVector HitLocation)
+{
+
+	if (!ensure(TankAim)) { return; } //ensure
+	AimAt(HitLocation, LunchSpeed);
+
 }
 
 void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 {
-	//FString TankName = GetOwner()->GetName();
-	//FVector BarrelLocation = Barrel->GetComponentLocation();
 	
 	if ( !ensure(Barrel) ) { return; } //ensure
 	FVector OutLunchVelocity;
@@ -70,21 +74,13 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 	{ 
 		FVector AimDirection = OutLunchVelocity.GetSafeNormal();
 		
-		//UE_LOG(LogTemp, Warning, TEXT("Aim Direction:%s"), *AimDirection.ToString());
+		
 		
 		BarrelToAim(AimDirection);
 
 		TurretToAim(AimDirection);
 
-		//UE_LOG(LogTemp, Warning, TEXT("Aim Vector : %s"), *AimDirection.ToString());
-
 	}
-	
-	else 
-	{
-		//UE_LOG(LogTemp, Warning, TEXT("No Aim Solve Found at time : %f"), Time);
-	}
-	
 	
 	
 }
@@ -97,20 +93,7 @@ void UTankAimComponent::InitialiseAim(UTankBarrel* BarrelToSet, UTankTurret* Tur
 	Turret = TurretToSet;
 }
 
-/*
-void UTankAimComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
-{
-	if (!BarrelToSet) { return; }
-	Barrel = BarrelToSet;
-}
 
-void UTankAimComponent::SetTurretReference(UTankTurret* TurretToSet) 
-{
-	if (!TurretToSet) { return; }
-	Turret = TurretToSet;
-	//UE_LOG(LogTemp, Warning, TEXT("Turrret works"));
-}
-*/
 
 void UTankAimComponent::BarrelToAim(FVector AimDirection)
 {
@@ -121,7 +104,6 @@ void UTankAimComponent::BarrelToAim(FVector AimDirection)
 
 	FRotator DeltaRotator = AimRotator - BarrelRotator;
 	
-	//UE_LOG(LogTemp, Warning, TEXT("rotator diffrence: %s"), *DeltaRotator.ToString());
 	
 
 	Barrel->Elevate(DeltaRotator.Pitch); //TODO magic number
@@ -137,7 +119,6 @@ void UTankAimComponent::TurretToAim(FVector AimDirection)
 	
 	Turret->Rotate(DeltaRotator.Yaw);
 
-	//UE_LOG( LogTemp, Warning, TEXT("Delta Turret Rotator %s" ), *DeltaRotator.ToString() );
 	
 	}
 

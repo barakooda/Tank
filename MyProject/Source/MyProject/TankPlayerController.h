@@ -7,11 +7,9 @@
 
 
 //forword declartion
-//class ATank;
-/**
-Helping Player Aim
- */
-class ATank;
+class UTankAimComponent;
+
+
 //class UTankAimComponent;
 UCLASS()
 class MYPROJECT_API ATankPlayerController : public APlayerController
@@ -32,21 +30,22 @@ public:
 
 protected:
 
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
+	
 	
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimComponent* AimComponentRef);
 	
 	
 private:
-	
+
+	UTankAimComponent* TankAim = nullptr;
+
 	bool GetLookDirection(FVector2D, FVector&) const;
 	void AimOnMarker();
 	bool GetSightRayHitLocation(FVector &) const;
 	bool GetLookVectorHitLocation(FVector &,FVector &) const ;
 	
-	ATank* CurrentPossesedTank = nullptr ;
+	
 	float LineTraceRange = 1000000;
 
 };

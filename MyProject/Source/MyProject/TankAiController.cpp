@@ -3,15 +3,22 @@
 
 
 #include "MyProject.h"
-#include "Tank.h"
+#include "TankAimComponent.h"
 #include "TankAiController.h"
 //Depend on movement component via path finding
 
 void ATankAiController::BeginPlay()
 {
 	Super::BeginPlay();
-	CurrentPossesedTank = Cast<ATank>(GetPawn());
-	CurrentPlayerController = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	auto CurrentPossesedTank = GetPawn();
+	auto CurrentPlayerController = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	if (CurrentPossesedTank)
+
+	{
+		TankAim = CurrentPossesedTank->FindComponentByClass<UTankAimComponent>();
+
+	}
 
 
 	/////////////////////////////////////////Check if tank was possesed////////////////////////////////////////////////////////////////
@@ -45,17 +52,23 @@ void ATankAiController::BeginPlay()
 void ATankAiController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (CurrentPossesedTank && CurrentPlayerController) 
+
+	auto CurrentPossesedTank = GetPawn();
+	auto CurrentPlayerController = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+
+	if (ensure(CurrentPossesedTank && CurrentPlayerController) )
 	
 	{
+		TankAim = CurrentPossesedTank->FindComponentByClass<UTankAimComponent>();
 
 		MoveToActor(CurrentPlayerController, StopRadius);// check radius ditance unit //using path finding logic in tankmovemnet compenent
 
 		FVector HitLocation = CurrentPlayerController->GetActorLocation();
-		CurrentPossesedTank->AimAt(HitLocation);
+		TankAim->AimLocation(HitLocation);
 
 		//fire every frame
-		CurrentPossesedTank->fire();
+		//CurrentPossesedTank->fire(); //TODO add fire option
 	
 	}
 
