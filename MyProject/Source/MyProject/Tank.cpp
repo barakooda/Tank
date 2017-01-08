@@ -24,27 +24,13 @@ ATank::ATank()
 
 }
 
+/*
+
+*/
 
 
 
-void ATank::fire() 
 
-	{
 
-		bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTime;
-		//UE_LOG(LogTemp, Warning, TEXT("Fire!!!"));
-	
-		if (Barrel && bIsReloaded)
-		{
-			//spwan projectile on socket of barrel.
-			FVector Location = Barrel->GetSocketLocation("BarrelEnd");
-			FRotator Rotation = Barrel->GetSocketRotation("BarrelEnd");
-			//UE_LOG( LogTemp, Warning, TEXT("Fire!!! location : %s "), *Location.ToString() );
 
-			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Location, Rotation);
 
-			Projectile->LunchProjectile(LunchSpeed);
-			LastFireTime = FPlatformTime::Seconds();
-
-		}
-	}

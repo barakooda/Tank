@@ -13,7 +13,7 @@ void ATankAiController::BeginPlay()
 	auto CurrentPossesedTank = GetPawn();
 	auto CurrentPlayerController = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	if (CurrentPossesedTank)
+	if (ensure(CurrentPossesedTank))
 
 	{
 		TankAim = CurrentPossesedTank->FindComponentByClass<UTankAimComponent>();
@@ -68,7 +68,7 @@ void ATankAiController::Tick(float DeltaTime)
 		TankAim->AimLocation(HitLocation);
 
 		//fire every frame
-		//CurrentPossesedTank->fire(); //TODO add fire option
+		TankAim->fire(); //TODO add fire option
 	
 	}
 

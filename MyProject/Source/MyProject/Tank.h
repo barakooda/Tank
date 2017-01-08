@@ -20,12 +20,6 @@ public:
 	
 	virtual void BeginPlay() override;
 	
-	
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void fire();
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "SomeText")
-	FString SomeText = "Text From Tank.h - yay";
 
 
 
@@ -52,16 +46,5 @@ private:
 	//UPROPERTY(EditAnywhere, Category = "Firing")
 	//float LunchSpeed = 4000;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float ReloadTime = 3; //seconds
-
-	UPROPERTY(EditAnywhere, Category = "Setup")
-	TSubclassOf<AProjectile> ProjectileBlueprint;
-
-
 	
-	float LastFireTime = 0;   //last time tank was firing
-	float LunchSpeed = 4000;
-
-	UTankBarrel* Barrel = nullptr;
 };
