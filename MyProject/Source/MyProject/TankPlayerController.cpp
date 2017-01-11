@@ -78,8 +78,9 @@ void ATankPlayerController::AimOnMarker()
 	}
 
 	FVector HitLocation = FVector(1.0); //Out parameter
-
-	if (GetSightRayHitLocation(HitLocation))
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation : %i"), bGotHitLocation);
+	if (bGotHitLocation)
 		
 		{
 			
@@ -103,20 +104,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const
 	
 	if ( GetLookDirection(ScreenLocation,LookDirection ) )
 	{
-
-		
-		if (GetLookVectorHitLocation(LookDirection, HitLocation)) 
-		{
-			
-			
-			return true;
-		}
-
-
-		
-
-
-		
+		return GetLookVectorHitLocation(LookDirection, HitLocation);		
 	}
 	
 	//HitLocation = FVector(1.0);
@@ -159,7 +147,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector &LookDirection,FVec
 	else 
 	{
 		HitLocation = FVector(0);
-		return true;
+		return false;
 	}
 	
 }

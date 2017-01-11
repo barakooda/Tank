@@ -21,4 +21,20 @@ public:
 	//max Drive Force Newton 
 	UPROPERTY(EditDefaultsOnly)
 	float TrackMaxForce = 18000000.0; //45 ton tank and 2.7 accelration m/s
+
+private:
+	UTankTrack();
+
+	virtual void BeginPlay() override;
+	
+	
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void ApplySideWaysForce();
+
+	void DriveTrack();
+
+	float CurrentThrottle = 0;
+
 };

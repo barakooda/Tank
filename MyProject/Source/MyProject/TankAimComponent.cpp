@@ -23,7 +23,7 @@ UTankAimComponent::UTankAimComponent()
 void UTankAimComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tick Works : %f"), DeltaTime);
+	//UE_LOG(LogTemp, Warning, TEXT("Tick Works : %f"), DeltaTime);
 
 	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) < ReloadTime;
 	
@@ -139,12 +139,19 @@ void UTankAimComponent::BarrelToAim(FVector AimDirection)
 
 void UTankAimComponent::TurretToAim(FVector AimDirection) 
 	{
-	if (!ensure(Turret)) { return; } //ensure
-	FRotator TurretRotator = Turret->GetForwardVector().Rotation();
-	FRotator AimRotator = AimDirection.Rotation();
-	FRotator DeltaRotator = AimRotator - TurretRotator;
-	
-	Turret->Rotate(DeltaRotator.Yaw);
+		if (!ensure(Turret)) { return; } //ensure
+		FRotator TurretRotator = Turret->GetForwardVector().Rotation();
+		FRotator AimRotator = AimDirection.Rotation();
+		FRotator DeltaRotator = AimRotator - TurretRotator;
+		if (FMath::Abs(DeltaRotator.Yaw) < 180)
+		{ 
+			Turret->Rotate(DeltaRotator.Yaw);
+		}
+		else
+
+		{
+			Turret->Rotate(-DeltaRotator.Yaw);
+		}
 
 	
 	}
