@@ -50,7 +50,8 @@ public:
 	
 	//virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		
+	EFiringStatus GetFireingState() const;
+
 	void AimAt(FVector,float);
 
 	

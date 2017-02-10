@@ -79,7 +79,7 @@ void ATankPlayerController::AimOnMarker()
 
 	FVector HitLocation = FVector(1.0); //Out parameter
 	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
-	UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation : %i"), bGotHitLocation);
+	//UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation : %i"), bGotHitLocation);
 	if (bGotHitLocation)
 		
 		{

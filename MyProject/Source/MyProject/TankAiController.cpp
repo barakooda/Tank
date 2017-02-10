@@ -68,8 +68,12 @@ void ATankAiController::Tick(float DeltaTime)
 		TankAim->AimLocation(HitLocation);
 
 		//fire every frame
-		TankAim->fire(); //TODO add fire option
-	
+
+		//TODO if aimng or locked then fire.
+		if (TankAim->GetFireingState() == EFiringStatus::Locked)
+			{
+				TankAim->fire(); //TODO add fire option
+			}
 	}
 
 }

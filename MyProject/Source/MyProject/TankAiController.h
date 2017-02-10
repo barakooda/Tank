@@ -22,11 +22,15 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
+protected :
+	//how close can the Ai takn get to the player.
+
+	UPROPERTY (EditAnywhere,Category = "Setup") //Todo Consider editdeafult
+	float StopRadius = 6000;
 
 private:
 	UTankAimComponent* TankAim = nullptr;
 
-	//how close can the Ai takn get to the player.
-	float StopRadius = 3;
+	
 	
 };
