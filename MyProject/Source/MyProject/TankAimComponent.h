@@ -12,7 +12,8 @@ enum class EFiringStatus : uint8
 {
 	Reload,
 	Aim,
-	Locked
+	Locked,
+	OutOfRounds
 };
 
 //forward decleration 
@@ -53,8 +54,10 @@ public:
 	EFiringStatus GetFireingState() const;
 
 	void AimAt(FVector,float);
-
 	
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	int32 GetLeftRounds() const;
+
 
 protected:
 	UPROPERTY(BluePrintReadOnly, Category = "State")
@@ -75,6 +78,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTime = 3; //seconds
 
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 Rounds = 3;
+
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 	UTankAimComponent();
@@ -89,7 +95,7 @@ private:
 	void BarrelToAim(FVector);
 	void TurretToAim(FVector);
 
-	
+	void RoundsCountDown();
 
 
 
@@ -97,5 +103,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Firing")
 	float LunchSpeed = 4000;
+
+	
 	
 };

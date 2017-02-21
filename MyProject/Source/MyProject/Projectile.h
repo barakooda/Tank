@@ -24,7 +24,21 @@ public:
 
 	void LunchProjectile(float);
 
+	
+
+	
+
 private:
+
 	UPMC* ProjectileMovement = nullptr;
+
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* LunchBlast = nullptr;
+	
+
 	
 };

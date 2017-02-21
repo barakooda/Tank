@@ -16,7 +16,7 @@ UTankAimComponent::UTankAimComponent()
 	// off to improve performance if you don't need them.
 	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true; //TODO should this really tick ?
-	
+	Rounds = 3;
 	
 	// ...
 }
@@ -24,6 +24,12 @@ void UTankAimComponent::TickComponent(float DeltaTime, enum ELevelTick TickType,
 
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Tick Works : %f"), DeltaTime);
+
+	if (GetLeftRounds() <= 0)
+	{
+		FiringState = EFiringStatus::OutOfRounds;
+		return;
+	}
 
 	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) < ReloadTime;
 	
@@ -113,6 +119,8 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LunchSpeed)
 }
 
 
+
+
 void UTankAimComponent::InitialiseAim(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
 	if ( !ensure( BarrelToSet && TurretToSet ) ) { return; } // ensure
@@ -157,6 +165,8 @@ void UTankAimComponent::TurretToAim(FVector AimDirection)
 	
 	}
 
+
+
 void UTankAimComponent::fire()
 
 {
@@ -164,7 +174,7 @@ void UTankAimComponent::fire()
 	
 	//UE_LOG(LogTemp, Warning, TEXT("Fire!!!"));
 
-	if ( (FiringState != EFiringStatus::Reload) )
+	if (FiringState == EFiringStatus::Locked)
 	{
 		//spwan projectile on socket of barrel.
 		FVector Location = Barrel->GetSocketLocation("BarrelEnd");
@@ -174,9 +184,25 @@ void UTankAimComponent::fire()
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Location, Rotation);
 
 		Projectile->LunchProjectile(LunchSpeed);
+		RoundsCountDown();
 		LastFireTime = FPlatformTime::Seconds();
 
 	}
+}
+
+void UTankAimComponent::RoundsCountDown()
+{
+	if (Rounds > 0)
+		{
+			Rounds--;
+		}
+	UE_LOG(LogTemp, Warning,TEXT("%d"),Rounds);
+
+}
+
+int32 UTankAimComponent::GetLeftRounds() const
+{
+	return Rounds;
 }
 
 bool UTankAimComponent::IsBarrelMoving()

@@ -13,6 +13,17 @@ AProjectile::AProjectile()
 
 	ProjectileMovement = CreateDefaultSubobject <UPMC>( FName("Projectile Movement Component") );
 	ProjectileMovement->bAutoActivate = false;
+
+	
+	
+	CollisionMesh = CreateDefaultSubobject <UStaticMeshComponent>(FName("Collision_Mesh"));
+	SetRootComponent(CollisionMesh);
+	CollisionMesh->SetNotifyRigidBodyCollision(true);
+	CollisionMesh->SetVisibility(false);
+
+	LunchBlast = CreateDefaultSubobject <UParticleSystemComponent>(FName("Lunch_Blast"));
+	LunchBlast -> AttachTo(RootComponent);
+	
 }
 
 // Called when the game starts or when spawned
