@@ -5,6 +5,7 @@
 #include "MyProject.h"
 #include "TankAimComponent.h"
 #include "TankAiController.h"
+#include "Tank.h" //we can implement OnDeath
 //Depend on movement component via path finding
 
 void ATankAiController::BeginPlay()
@@ -48,6 +49,31 @@ void ATankAiController::BeginPlay()
 
 
 }
+void ATankAiController::SetPawn(APawn * InPawn)
+
+{
+	Super::SetPawn(InPawn);
+	if (InPawn) 
+	{
+		 
+		auto PossedTank = Cast<ATank>(InPawn);
+
+		if (!ensure(PossedTank)) { return; }
+
+		//subscribe our local method to the tank death
+		PossedTank->OnDeath.AddUniqueDynamic(this,&ATankAiController::OnPossedTankDeath);
+	}
+}
+
+void ATankAiController::OnPossedTankDeath()
+{
+	UE_LOG(LogTemp,Warning,TEXT("recvied"));
+	
+	if (!GetPawn()) { return; }
+	GetPawn() -> DetachFromControllerPendingDestroy();
+	
+}
+
 
 void ATankAiController::Tick(float DeltaTime)
 {

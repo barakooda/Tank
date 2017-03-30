@@ -6,7 +6,7 @@
 
 #include "TankAimComponent.h"
 #include "TankPlayerController.h"
-
+#include "Tank.h" //we can implement OnDeath
 
 void ATankPlayerController::BeginPlay()
 {
@@ -137,7 +137,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector &LookDirection,FVec
 		OutHit,
 		Start,
 		End,
-		ECollisionChannel::ECC_Visibility)
+		ECollisionChannel::ECC_Camera)
 		) 
 	{
 		HitLocation = OutHit.Location;
@@ -149,5 +149,28 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector &LookDirection,FVec
 		HitLocation = FVector(0);
 		return false;
 	}
+
 	
+}
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+
+		auto PossedTank = Cast<ATank>(InPawn);
+
+		if (!ensure(PossedTank)) { return; }
+
+		//subscribe our local method to the tank death
+		PossedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossedTankDeath);
+	}
+}
+
+void ATankPlayerController::OnPossedTankDeath()
+{
+	StartSpectatingOnly();
+	UE_LOG(LogTemp, Warning, TEXT("recvied"));
 }

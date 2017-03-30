@@ -38,15 +38,22 @@ protected:
 	
 private:
 
-	UTankAimComponent* TankAim = nullptr;
+	virtual void SetPawn(APawn * InPawn) override;
 
 	bool GetLookDirection(FVector2D, FVector&) const;
 	void AimOnMarker();
 	bool GetSightRayHitLocation(FVector &) const;
 	bool GetLookVectorHitLocation(FVector &,FVector &) const ;
+
+	UFUNCTION()
+	void OnPossedTankDeath();
 	
 	
 	float LineTraceRange = 1000000;
+
+	UTankAimComponent* TankAim = nullptr;
+
+	
 
 };
  

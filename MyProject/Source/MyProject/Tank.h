@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //paste includes only above this line
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+
 //forward declaration
 class UTankBarrel;
 class UTankTurret;
@@ -17,11 +19,23 @@ class MYPROJECT_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintPure,Category = "Health")
+	float GetHealthPercentage() const;
 	
 	virtual void BeginPlay() override;
+
+//called by the engine when actor damage is dealt
+
+	FTankDelegate OnDeath;
+
+	virtual float TakeDamage(
+	float DamageAmount,
+	struct FDamageEvent const & DamageEvent,
+	class AController * EventInstigator,
+	AActor * DamageCauser
+	) override;
+
 	
-
-
 
 
 protected:
@@ -32,6 +46,14 @@ protected:
 	//UTankAimComponent* TankAim = nullptr;
 
 private:
+
+	UPROPERTY (EditDefaultsOnly,Category = "Setup")
+	int32 StartingHealth = 200;
+	
+	UPROPERTY(VisibleAnywhere,Category = "Health")
+	int32 CurrentHealth ; //inttilaize in begin play 
+
+
 	// Sets default values for this pawn's properties
 	ATank();
 

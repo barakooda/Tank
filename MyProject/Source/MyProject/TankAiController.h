@@ -29,8 +29,10 @@ protected :
 	float StopRadius = 6000;
 
 private:
+	virtual void SetPawn(APawn * InPawn) override;
 	UTankAimComponent* TankAim = nullptr;
 
-	
+	UFUNCTION()
+	void OnPossedTankDeath();
 	
 };
